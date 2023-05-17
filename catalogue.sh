@@ -32,4 +32,6 @@ cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
 
 echo -e "\e[36m>>>>>Install MongoDB client<<<<<\e[0m"
 yum install mongodb-org-shell -y
+
+echo -e "\e[36m>>>>>Schema reloadclient<<<<<\e[0m"
 mongo --host mongodb-dev.rsaideepika123.online </app/schema/catalogue.js
