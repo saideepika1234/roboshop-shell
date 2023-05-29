@@ -1,34 +1,12 @@
-echo -e "\e[36m>>>>>Configuring NodeJS repos<<<<<\e[0m"
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+script=$(realpath "$0")
+script_path=$(dirname "$script")
+source ${script_path}/common.sh
 
-echo -e "\e[36m>>>>>Install NodeJS<<<<<\e[0m"
-yum install nodejs -y
-
-echo -e "\e[36m>>>>>Create Application Directory<<<<<\e[0m"
-useradd roboshop
-rm -rf /app
-mkdir /app 
-
-echo -e "\e[36m>>>>>Downlaod App Content<<<<<\e[0m"
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip 
-cd /app 
-
-echo -e "\e[36m>>>>>Unzip App content<<<<<\e[0m"
-unzip /tmp/catalogue.zip
-
-echo -e "\e[36m>>>>>Install Nodejs Dependencies<<<<<\e[0m"
-npm install 
-
-echo -e "\e[36m>>>>>Copy catalogue system file <<<<<\e[0m"
-cp /home/centos/roboshop-shell/catalogue.service /etc/systemd/system/catalogue.service
-
-echo -e "\e[36m>>>>>Start catalogue system<<<<<\e[0m"
-systemctl daemon-reload
-systemctl enable catalogue 
-systemctl start catalogue
+component=catalogue
+fun_nodejs
 
 echo -e "\e[36m>>>>>Copy MongoDB repo <<<<<\e[0m"
-cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
+cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
 
 echo -e "\e[36m>>>>>Install MongoDB client<<<<<\e[0m"
 yum install mongodb-org-shell -y
