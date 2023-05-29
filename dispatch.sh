@@ -6,7 +6,7 @@ echo -e "\e[36m>>>>>Install Golang<<<<<\e[0m"
 yum install golang -y
 
 echo -e "\e[36m>>>>>Add Roboshop user<<<<<\e[0m"
-useradd roboshop
+useradd $app_user
 
 echo -e "\e[36m>>>>>Create app directory<<<<<\e[0m"
 mkdir /app 
